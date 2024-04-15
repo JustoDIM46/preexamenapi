@@ -1,65 +1,133 @@
 package es.mde.entidades;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collection;
+import es.mde.repositorios.JugadorListener;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "Jugador")
+@EntityListeners(JugadorListener.class)
 public class Jugador {
 
-	private String nombre;
-	private String correo;
-	private Instant fechaNacimiento;
-	private boolean zurdo;
-	private double altura;
-	private boolean virgen;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(unique = true)
+  private Long id;
+  private String nombre;
+  private String correo;
+  private Instant fechaNacimiento;
+  private boolean zurdo;
+  private int altura;
+  private transient boolean virgen;
+  private int numero;
 
-	public Jugador() {
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "EQUIPO")
+  private Equipo equipo;
 
-	public String getNombre() {
-		return nombre;
-	}
+  @OneToMany(cascade = CascadeType.ALL, targetEntity = Camiseta.class, mappedBy = "jugador")
+  private Collection<Camiseta> camisetas = new ArrayList<>();
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+  public Jugador() {}
 
-	public String getCorreo() {
-		return correo;
-	}
+  public String getNombre() {
+    return nombre;
+  }
 
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
 
-	public Instant getFechaNacimiento() {
-		return fechaNacimiento;
-	}
+  public String getCorreo() {
+    return correo;
+  }
 
-	public void setFechaNacimiento(Instant fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
+  public void setCorreo(String correo) {
+    this.correo = correo;
+  }
 
-	public boolean isZurdo() {
-		return zurdo;
-	}
+  public Instant getFechaNacimiento() {
+    return fechaNacimiento;
+  }
 
-	public void setZurdo(boolean zurdo) {
-		this.zurdo = zurdo;
-	}
+  public void setFechaNacimiento(Instant fechaNacimiento) {
+    this.fechaNacimiento = fechaNacimiento;
+  }
 
-	public double getAltura() {
-		return altura;
-	}
+  public boolean isZurdo() {
+    return zurdo;
+  }
 
-	public void setAltura(double altura) {
-		this.altura = altura;
-	}
+  public void setZurdo(boolean zurdo) {
+    this.zurdo = zurdo;
+  }
 
-	public boolean isVirgen() {
-		return virgen;
-	}
+  public int getAltura() {
+    return altura;
+  }
 
-	public void setVirgen(boolean virgen) {
-		this.virgen = virgen;
-	}
+  public void setAltura(int altura) {
+    this.altura = altura;
+  }
+
+  public boolean isVirgen() {
+    return virgen;
+  }
+
+  public void setVirgen(boolean virgen) {
+    this.virgen = virgen;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public Equipo getEquipo() {
+    return equipo;
+  }
+
+  public void setEquipo(Equipo equipo) {
+    this.equipo = equipo;
+  }
+
+  
+  public int getNumero() {
+    return numero;
+  }
+
+  public void setNumero(int numero) {
+    this.numero = numero;
+  }
+
+  public Collection<Camiseta> getCamisetas() {
+    return camisetas;
+  }
+
+  public void setCamisetas(Collection<Camiseta> camisetas) {
+    this.camisetas = camisetas;
+  }
+
+  public void addCamiseta(Camiseta camiseta) {
+    this.getCamisetas().add(camiseta);
+    camiseta.setJugador(this);
+}
+
 
 }
