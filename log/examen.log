@@ -284,3 +284,23 @@ INSERT INTO "PUBLIC"."JUGADOR_COPY_195_2"("ID", "ALTURA", "CORREO", "FECHANACIMI
 2024-04-15 11:41 ERROR 27204 --- [examen-spring-2024] [http-nio-8080-exec-3] es.mde.repositorios.JugadorListener      : Se ha creado el jugador: Ms. Shane Lemke
 2024-04-15 11:41 ERROR 27204 --- [examen-spring-2024] [http-nio-8080-exec-4] es.mde.repositorios.JugadorListener      : Se ha creado el jugador: Faith Mitchell
 2024-04-15 11:41 ERROR 27204 --- [examen-spring-2024] [http-nio-8080-exec-5] es.mde.repositorios.JugadorListener      : Se ha creado el jugador: Maurice Cormier
+2024-04-15 12:04  WARN 29391 --- [examen-spring-2024] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine suitable jdbc url
+2024-04-15 12:04 ERROR 29391 --- [examen-spring-2024] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine suitable jdbc url
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
