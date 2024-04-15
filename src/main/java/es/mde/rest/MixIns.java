@@ -20,7 +20,7 @@ public class MixIns {
 	 * 
 	 */
 //	@JsonPropertyOrder({ "nombre", "correo" })
-	//@JsonIgnoreProperties({"altura"})//si quiero que en el GET no me incluya una propiedad...
+	@JsonIgnoreProperties({"altura"})//si quiero que en el GET no me incluya una propiedad...
 	public static interface Jugadores {
 	}
 	
@@ -37,8 +37,10 @@ public class MixIns {
 	 * 
 	 */
 //	@JsonPropertyOrder({ "nombre", "hojas" })
-
+	
 	public static interface Camisetas {
+	  @JsonPropertyOrder({ "dry" })  
+	  boolean isLavabeEnSeco();
 	}
 
 }

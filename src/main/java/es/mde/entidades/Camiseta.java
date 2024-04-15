@@ -1,6 +1,9 @@
 package es.mde.entidades;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,10 +29,8 @@ public class Camiseta {
   @Column(name = "numero-dorsal")
   private int numero;
   
-  
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "JUGADOR")
-  private Jugador jugador;
+  @OneToMany(cascade = CascadeType.ALL, targetEntity = Jugador.class, mappedBy = "camiseta")
+  private Collection<Jugador> jugadores = new ArrayList<>();
   
   public boolean isLavabeEnSeco() {
     return lavableEnSeco;
@@ -59,18 +61,23 @@ public class Camiseta {
     this.lavableEnSeco = lavableEnSeco;
   }
 
-  public Jugador getJugador() {
-    return jugador;
-  }
-
-  public void setJugador(Jugador jugador) {
-    this.jugador = jugador;
-  }
-
   public void setNumero(int numero) {
     this.numero = numero;
   }
 
+  public Collection<Jugador> getJugadores() {
+    return jugadores;
+  }
+
+  public void setJugadores(Collection<Jugador> jugadores) {
+    this.jugadores = jugadores;
+  }
+
+  public void addJugador(Jugador jugador) {
+    this.getJugadores().add(jugador);
+    jugador.setCamiseta(this);
+  }
+  
   public Camiseta() {
   }
   

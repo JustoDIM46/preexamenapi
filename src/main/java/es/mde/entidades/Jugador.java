@@ -32,14 +32,15 @@ public class Jugador {
   private boolean zurdo;
   private int altura;
   private transient boolean virgen;
-  private int numero;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "EQUIPO")
   private Equipo equipo;
+  
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "CAMISETA")
+  private Camiseta camiseta;
 
-  @OneToMany(cascade = CascadeType.ALL, targetEntity = Camiseta.class, mappedBy = "jugador")
-  private Collection<Camiseta> camisetas = new ArrayList<>();
 
   public Jugador() {}
 
@@ -107,27 +108,12 @@ public class Jugador {
     this.equipo = equipo;
   }
 
-  
-  public int getNumero() {
-    return numero;
+  public Camiseta getCamiseta() {
+    return camiseta;
   }
 
-  public void setNumero(int numero) {
-    this.numero = numero;
+  public void setCamiseta(Camiseta camiseta) {
+    this.camiseta = camiseta;
   }
-
-  public Collection<Camiseta> getCamisetas() {
-    return camisetas;
-  }
-
-  public void setCamisetas(Collection<Camiseta> camisetas) {
-    this.camisetas = camisetas;
-  }
-
-  public void addCamiseta(Camiseta camiseta) {
-    this.getCamisetas().add(camiseta);
-    camiseta.setJugador(this);
-}
-
 
 }

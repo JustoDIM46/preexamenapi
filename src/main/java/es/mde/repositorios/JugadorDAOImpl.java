@@ -33,6 +33,6 @@ public class JugadorDAOImpl implements JugadorDAOCustom {
   @Override
   public List<Jugador> getJugadoresConNumeroDiez() {
     
-    return jugadorDAO.findByNumero(10);
+    return jugadorDAO.findByNumero(10).stream().distinct().collect(Collectors.toList());
   }
 }

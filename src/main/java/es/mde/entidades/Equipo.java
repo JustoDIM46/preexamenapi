@@ -44,4 +44,25 @@ public class Equipo {
     this.mixto = mixto;
   }
 
+  
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public Collection<Jugador> getJugadores() {
+    return jugadores;
+  }
+
+  public void setJugadores(Collection<Jugador> jugadores) {
+    this.jugadores = jugadores;
+  }
+
+  public void addJugador(Jugador jugador) {
+    this.getJugadores().add(jugador);
+    jugador.setEquipo(this);
+  }
 }
