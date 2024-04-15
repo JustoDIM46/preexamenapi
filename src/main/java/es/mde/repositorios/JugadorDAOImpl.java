@@ -1,5 +1,6 @@
 package es.mde.repositorios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.stream.Collectors;
@@ -18,10 +19,10 @@ import jakarta.persistence.PersistenceContext;
 @Transactional(readOnly = true)
 public class JugadorDAOImpl implements JugadorDAOCustom {
 
-	@Autowired
-	JugadorDAO jugadorDAO;
-	@PersistenceContext
-	EntityManager entityManager;
+  @Autowired
+  CamisetaDAO camisetaDAO;
+  @PersistenceContext
+  EntityManager entityManager;
 
 //	@Override
 //	public List<Jugador> getProductosPagadosDeCliente(Long id) {
@@ -29,10 +30,18 @@ public class JugadorDAOImpl implements JugadorDAOCustom {
 //				.filter(p -> p.isPagado() == true).collect(Collectors.toList());
 //		return productos;
 //	}
-
+  
   @Override
-  public List<Jugador> getJugadoresConNumeroDiez() {
-    
-    return jugadorDAO.findByNumero(10).stream().distinct().collect(Collectors.toList());
+  public List<Jugador> getJugadoresConNumero(int numero) {
+      List<Jugador> jugadores = new ArrayList<>();
+      camisetaDAO.findByNumero(numero).forEach(c -> jugadores.add((Jugador) c.getJugadores()));
+      return jugadores;
   }
+
+@Override
+public List<Jugador> getJugadoresConNumeroDiez() {
+  return this.getJugadoresConNumero(10);
 }
+}
+
+

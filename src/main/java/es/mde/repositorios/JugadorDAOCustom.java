@@ -7,4 +7,6 @@ import es.mde.entidades.Jugador;
 public interface JugadorDAOCustom {
 
   List<Jugador> getJugadoresConNumeroDiez();
+
+  List<Jugador> getJugadoresConNumero(int numero);
 }
